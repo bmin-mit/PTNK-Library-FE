@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptnk_library_fe/src/features/auth/presentation/login/login_screen.dart';
-import 'package:ptnk_library_fe/src/features/auth/providers/auth_provider.dart';
+import 'package:ptnk_library_fe/features/auth/application/auth_service.dart';
+import 'package:ptnk_library_fe/features/auth/presentation/login/login_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final loggedUser = ref.watch(loggerUserProvider);
+        final userToken = ref.watch(authServiceProvider).value;
 
-        if (loggedUser == null) {
-          return LoginScreen();
+        if (userToken == null) {
+          Future.microtask(
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (builder) => const LoginScreen()),
+            ),
+          );
         }
 
         return Scaffold(
