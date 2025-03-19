@@ -9,9 +9,7 @@ part 'auth_repository.g.dart';
 @riverpod
 class AuthRepository extends _$AuthRepository {
   @override
-  AuthRepository build() {
-    return this;
-  }
+  void build() {}
 
   Future<UserToken> login({
     required String username,
@@ -24,6 +22,11 @@ class AuthRepository extends _$AuthRepository {
       data: {"username": username, "password": password},
     );
 
-    return UserToken.fromJson(response.data);
+    final userToken = UserToken.fromJson(response.data);
+
+    dio.options.headers['Authorization'] =
+        '${userToken.tokenType} ${userToken.accessToken}';
+
+    return userToken;
   }
 }

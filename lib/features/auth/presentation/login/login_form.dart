@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/auth_service.dart';
+import '../../application/auth_notifier.dart';
 import '../auth_text_input.dart';
 
 final class LoginForm extends ConsumerWidget {
@@ -11,9 +11,7 @@ final class LoginForm extends ConsumerWidget {
     ref,
   ) {
     final controller = TextEditingController();
-    ref.onDispose(() {
-      controller.dispose();
-    });
+    ref.onDispose(controller.dispose);
 
     return controller;
   });
@@ -22,9 +20,7 @@ final class LoginForm extends ConsumerWidget {
     ref,
   ) {
     final controller = TextEditingController();
-    ref.onDispose(() {
-      controller.dispose();
-    });
+    ref.onDispose(controller.dispose);
 
     return controller;
   });
@@ -40,12 +36,8 @@ final class LoginForm extends ConsumerWidget {
       return;
     }
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Logging in...')));
-
     ref
-        .read(authServiceProvider.notifier)
+        .read(authNotifierProvider.notifier)
         .login(
           username: ref.watch(_usernameController).text,
           password: ref.watch(_passwordController).text,

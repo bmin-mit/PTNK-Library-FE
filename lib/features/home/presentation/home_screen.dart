@@ -1,8 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptnk_library_fe/features/auth/application/auth_service.dart';
-import 'package:ptnk_library_fe/features/auth/presentation/login/login_screen.dart';
 
+@RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,17 +17,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final userToken = ref.watch(authServiceProvider).value;
-
-        if (userToken == null) {
-          Future.microtask(
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (builder) => const LoginScreen()),
-            ),
-          );
-        }
-
         return Scaffold(
           body: Text(pageIndex.toString()),
           bottomNavigationBar: NavigationBar(
