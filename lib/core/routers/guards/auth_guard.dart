@@ -11,12 +11,14 @@ class AuthGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final userToken = ref.watch(authNotifierProvider).value;
+    final userToken = ref.read(authNotifierProvider);
 
-    if (userToken != null) {
+    if (userToken.valueOrNull != null) {
       resolver.next(true);
     } else {
-      router.replace(const LoginRoute());
+      if (router.current is! LoginRoute) {
+        router.replace(const LoginRoute());
+      }
     }
   }
 }

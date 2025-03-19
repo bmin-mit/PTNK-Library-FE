@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptnk_library_fe/features/auth/application/auth_notifier.dart';
 
 import 'core/routers/app_router.dart';
 

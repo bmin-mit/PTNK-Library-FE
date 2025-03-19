@@ -1,9 +1,8 @@
 import 'package:ptnk_library_fe/core/constants/api.dart';
+import 'package:ptnk_library_fe/core/utils/network_service/network_service.dart';
 import 'package:ptnk_library_fe/features/auth/application/auth_notifier.dart';
 import 'package:ptnk_library_fe/features/user/domain/user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:ptnk_library_fe/core/utils/network_service/network_service.dart';
 
 part 'user_repository.g.dart';
 
