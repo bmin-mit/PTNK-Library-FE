@@ -11,9 +11,9 @@ void main() async {
 }
 
 class App extends ConsumerWidget {
-  App({super.key});
+  const App({super.key});
 
-  final _seedColor = Colors.pink;
+  final _seedColor = Colors.blue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

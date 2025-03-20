@@ -10,17 +10,18 @@ part 'user_repository.g.dart';
 class UserRepository extends _$UserRepository {
   @override
   User? build() {
-    return null;
+    getProfile();
+
+    return state;
   }
 
   Future<User?> getProfile() async {
     final userToken = ref.watch(authNotifierProvider).value;
+    final dio = ref.watch(networkServiceProvider);
 
     if (userToken == null) return null;
 
-    final dio = ref.watch(networkServiceProvider);
     final response = await dio.get(getMePath);
-
     final user = User.fromJson(response.data);
     state = user;
     return user;

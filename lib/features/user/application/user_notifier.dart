@@ -5,17 +5,15 @@ import '../domain/user.dart';
 
 part 'user_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UserNotifier extends _$UserNotifier {
   @override
   AsyncValue<User?> build() {
-    getCurrentProfile();
-
-    return AsyncData(null);
+    return state;
   }
 
   Future<void> getCurrentProfile() async {
-    final userRepository = ref.read(userRepositoryProvider.notifier);
+    final userRepository = ref.watch(userRepositoryProvider.notifier);
 
     try {
       state = AsyncValue.loading();

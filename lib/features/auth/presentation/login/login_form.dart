@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../application/auth_notifier.dart';
 import '../auth_text_input.dart';
@@ -27,25 +28,27 @@ final class LoginForm extends ConsumerWidget {
 
   LoginForm({super.key});
 
-  bool _validateForm() {
-    return _formKey.currentState!.validate();
-  }
-
-  void _submitLoginRequest(BuildContext context, WidgetRef ref) {
-    if (!_validateForm()) {
-      return;
-    }
-
-    ref
-        .read(authNotifierProvider.notifier)
-        .login(
-          username: ref.watch(_usernameController).text,
-          password: ref.watch(_passwordController).text,
-        );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (next.isLoading) {
+        context.loaderOverlay.show();
+        return;
+      }
+
+      context.loaderOverlay.hide();
+
+      if (next.hasError) {
+        final error = next.error;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.toString()),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    });
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 400),
       margin: const EdgeInsets.all(16),
@@ -67,5 +70,22 @@ final class LoginForm extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  bool _validateForm() {
+    return _formKey.currentState!.validate();
+  }
+
+  void _submitLoginRequest(BuildContext context, WidgetRef ref) {
+    if (!_validateForm()) {
+      return;
+    }
+
+    ref
+        .read(authNotifierProvider.notifier)
+        .login(
+          username: ref.watch(_usernameController).text,
+          password: ref.watch(_passwordController).text,
+        );
   }
 }
