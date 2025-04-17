@@ -12,7 +12,7 @@ import { ArrowRight } from 'lucide-vue-next'
       PTNK Library
     </H1>
     <H3>A simple, sleek and reliable library management service</H3>
-    
+
     <Button size="lg" class="mt-2 shadow-xl">
       Getting started <ArrowRight />
     </Button>
