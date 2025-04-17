@@ -1433,7 +1433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.16.2, @nuxt/kit@npm:^3.15.4, @nuxt/kit@npm:^3.16.0, @nuxt/kit@npm:^3.16.1, @nuxt/kit@npm:^3.16.2":
+"@nuxt/kit@npm:3.16.2, @nuxt/kit@npm:^3.13.2, @nuxt/kit@npm:^3.15.4, @nuxt/kit@npm:^3.16.0, @nuxt/kit@npm:^3.16.1, @nuxt/kit@npm:^3.16.2":
   version: 3.16.2
   resolution: "@nuxt/kit@npm:3.16.2"
   dependencies:
@@ -1537,6 +1537,18 @@ __metadata:
   peerDependencies:
     vue: ^3.3.4
   checksum: 10c0/2889e63cf0e9ef5d5156fb7fb80d5463d5b31035e25d95d7d0c75e5317f0f17a8c986163d50ff433fd14155586293b189202192a48fc58f993c8a842759d0e40
+  languageName: node
+  linkType: hard
+
+"@nuxtjs/color-mode@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "@nuxtjs/color-mode@npm:3.5.2"
+  dependencies:
+    "@nuxt/kit": "npm:^3.13.2"
+    pathe: "npm:^1.1.2"
+    pkg-types: "npm:^1.2.1"
+    semver: "npm:^7.6.3"
+  checksum: 10c0/81b19c3ab82b9eeb8909666ba9c0ce714a51e481515269e71efe000e915b07ab228c989b045b889a925a63b5ad696a53f13ac9f676a76c58df85177fa1321aca
   languageName: node
   linkType: hard
 
@@ -8504,6 +8516,7 @@ __metadata:
     "@nuxt/eslint": "npm:1.3.0"
     "@nuxt/fonts": "npm:0.11.1"
     "@nuxt/image": "npm:1.10.0"
+    "@nuxtjs/color-mode": "npm:^3.5.2"
     "@tailwindcss/vite": "npm:^4.1.4"
     "@vee-validate/zod": "npm:^4.15.0"
     "@vueuse/core": "npm:^13.1.0"
@@ -9070,7 +9083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-types@npm:^1.0.3, pkg-types@npm:^1.3.0":
+"pkg-types@npm:^1.0.3, pkg-types@npm:^1.2.1, pkg-types@npm:^1.3.0":
   version: 1.3.1
   resolution: "pkg-types@npm:1.3.1"
   dependencies:

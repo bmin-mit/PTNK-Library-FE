@@ -4,9 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/image'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/image', '@nuxtjs/color-mode'],
   typescript: {
-    typeCheck: true
+    typeCheck: true,
+  },
+  colorMode: {
+    classSuffix: '',
   },
   css: ['~/assets/css/tailwind.css'],
   vite: {
@@ -15,11 +18,11 @@ export default defineNuxtConfig({
     ],
   },
   imports: {
-    autoImport: false
+    autoImport: false,
   },
   eslint: {
     config: {
-      standalone: false
-    }
-  }
+      standalone: false,
+    },
+  },
 })
