@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports'
+import { navigateTo } from '#app'
+import { definePageMeta, useLogin } from '#imports'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-
 import { Input } from '@/components/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'
 import { Eye, EyeOff } from 'lucide-vue-next'
 import { useField, useForm } from 'vee-validate'
 import { ref } from 'vue'
+import { toast } from 'vue-sonner'
 import * as z from 'zod'
 import H3 from '~/components/ui/typography/H3.vue'
 
 definePageMeta({
   layout: 'auth',
 })
+
+const login = useLogin()
 
 const formSchema = toTypedSchema(z.object({
   email: z.string().email(),
@@ -31,8 +34,15 @@ const { handleSubmit, isSubmitting } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  console.log(values)
+  try {
+    await login(values.email, values.password)
+
+    toast.success('Login successful')
+    await navigateTo('/dashboard')
+  }
+  catch (e: any) {
+    toast.error(e.response.data.message)
+  }
 })
 
 const showPassword = ref(false)
@@ -91,5 +101,11 @@ const { value: email } = useField<string>('email', undefined, {
         </form>
       </CardContent>
     </Card>
+
+    <div class="mt-4 text-sm text-muted-foreground">
+      Don't have an account? <NuxtLink to="/register" class="text-primary underline">
+        Register
+      </NuxtLink>
+    </div>
   </div>
 </template>

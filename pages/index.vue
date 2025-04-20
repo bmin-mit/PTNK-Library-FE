@@ -13,8 +13,10 @@ import { ArrowRight } from 'lucide-vue-next'
     </H1>
     <H3>A simple, sleek and reliable library management service</H3>
 
-    <Button size="lg" class="mt-2 shadow-xl">
-      Getting started <ArrowRight />
+    <Button size="lg" class="mt-2 shadow-xl" as-child>
+      <NuxtLink to="/register">
+        Getting started <ArrowRight />
+      </NuxtLink>
     </Button>
   </div>
 </template>

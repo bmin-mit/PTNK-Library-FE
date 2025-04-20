@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
+import { navigateTo } from '#app'
 import { definePageMeta } from '#imports'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -8,15 +9,17 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { H3 } from '@/components/ui/typography'
-import { cn } from '@/lib/utils'
 
+import { cn } from '@/lib/utils'
 import { CalendarDate, DateFormatter, getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { toTypedSchema } from '@vee-validate/zod'
 import { CalendarIcon, Eye, EyeOff } from 'lucide-vue-next'
 import { toDate } from 'reka-ui/date'
 import { useField, useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
+import { toast } from 'vue-sonner'
 import * as z from 'zod'
+import { useRegister } from '~/composables/useRegister'
 
 definePageMeta({
   layout: 'auth',
@@ -33,7 +36,7 @@ const formSchema = toTypedSchema(z.object({
   path: ['confirmPassword'],
 }))
 
-const { handleSubmit, isSubmitting, values, setFieldValue, errors } = useForm({
+const { handleSubmit, isSubmitting, values, setFieldValue } = useForm({
   validationSchema: formSchema,
   initialValues: {
     email: '',
@@ -45,9 +48,18 @@ const { handleSubmit, isSubmitting, values, setFieldValue, errors } = useForm({
   validateOnMount: false,
 })
 
+const register = useRegister()
+
 const onSubmit = handleSubmit(async (values) => {
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  console.log(values)
+  try {
+    await register(values)
+
+    toast.success('Registration successful, please log in')
+    await navigateTo('/login')
+  }
+  catch (e: any) {
+    toast.error(e.response.data.message)
+  }
 })
 
 const showPassword = ref(false)
@@ -205,5 +217,11 @@ const { value: confirmPassword } = useField<string>('confirmPassword', undefined
         </Form>
       </CardContent>
     </Card>
+
+    <div class="mt-4 text-sm text-muted-foreground">
+      Already have an account? <NuxtLink to="/login" class="text-primary underline">
+        Log in
+      </NuxtLink>
+    </div>
   </div>
 </template>
