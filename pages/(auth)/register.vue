@@ -3,23 +3,19 @@ import type { DateValue } from '@internationalized/date'
 import { navigateTo } from '#app'
 import { definePageMeta } from '#imports'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent } from '@/components/ui/card'
+import { DatePicker } from '@/components/ui/date-picker'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { H3 } from '@/components/ui/typography'
 
-import { cn } from '@/lib/utils'
-import { CalendarDate, DateFormatter, getLocalTimeZone, parseDate, today } from '@internationalized/date'
+import { useRegister } from '@/composables/useRegister'
 import { toTypedSchema } from '@vee-validate/zod'
-import { CalendarIcon, Eye, EyeOff } from 'lucide-vue-next'
-import { toDate } from 'reka-ui/date'
+import { Eye, EyeOff } from 'lucide-vue-next'
 import { useField, useForm } from 'vee-validate'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { toast } from 'vue-sonner'
 import * as z from 'zod'
-import { useRegister } from '~/composables/useRegister'
 
 definePageMeta({
   layout: 'auth',
@@ -36,7 +32,7 @@ const formSchema = toTypedSchema(z.object({
   path: ['confirmPassword'],
 }))
 
-const { handleSubmit, isSubmitting, values, setFieldValue } = useForm({
+const { handleSubmit, isSubmitting, setFieldValue } = useForm({
   validationSchema: formSchema,
   initialValues: {
     email: '',
@@ -67,17 +63,6 @@ function togglePasswordVisibility() {
   showPassword.value = !showPassword.value
 }
 
-const placeholder = ref()
-
-const df = new DateFormatter('en-US', {
-  dateStyle: 'long',
-})
-
-const value = computed({
-  get: () => values.dateOfBirth ? parseDate(values.dateOfBirth) : undefined,
-  set: val => val,
-})
-
 const { value: email } = useField<string>('email', undefined, {
   validateOnValueUpdate: false,
   validateOnMount: false,
@@ -97,6 +82,17 @@ const { value: confirmPassword } = useField<string>('confirmPassword', undefined
   validateOnValueUpdate: false,
   validateOnMount: false,
 })
+
+const dateOfBirth = ref<DateValue>()
+
+function setDateOfBirthField(value?: DateValue) {
+  if (value) {
+    setFieldValue('dateOfBirth', value.toString())
+  }
+  else {
+    setFieldValue('dateOfBirth', undefined)
+  }
+}
 </script>
 
 <template>
@@ -133,43 +129,7 @@ const { value: confirmPassword } = useField<string>('confirmPassword', undefined
 
           <FormField name="dateOfBirth">
             <FormItem>
-              <FormLabel for="dateOfBirth">
-                Date of birth
-              </FormLabel>
-              <Popover>
-                <PopoverTrigger as-child>
-                  <FormControl>
-                    <Button
-                      variant="outline" :class="cn(
-                        'ps-3 text-start font-normal w-full',
-                        !value && 'text-muted-foreground',
-                      )"
-                      :disabled="isSubmitting"
-                    >
-                      <span>{{ value ? df.format(toDate(value)) : "Pick a date" }}</span>
-                      <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
-                    </Button>
-                    <input hidden>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent class="w-auto p-0">
-                  <Calendar
-                    v-model:placeholder="placeholder"
-                    v-model="value"
-                    calendar-label="Date of birth"
-                    :min-value="new CalendarDate(1900, 1, 1)"
-                    :max-value="today(getLocalTimeZone())"
-                    @update:model-value="(v?: DateValue) => {
-                      if (v) {
-                        setFieldValue('dateOfBirth', v.toString())
-                      }
-                      else {
-                        setFieldValue('dateOfBirth', undefined)
-                      }
-                    }"
-                  />
-                </PopoverContent>
-              </Popover>
+              <DatePicker v-model="dateOfBirth" @update:model-value="setDateOfBirthField" />
               <FormMessage />
             </FormItem>
           </FormField>
