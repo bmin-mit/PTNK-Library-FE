@@ -38,7 +38,7 @@ const onSubmit = handleSubmit(async (values) => {
     await login(values.email, values.password)
 
     toast.success('Login successful')
-    await navigateTo('/dashboard')
+    await navigateTo('/')
   }
   catch (e: any) {
     toast.error(e.response.data.message)

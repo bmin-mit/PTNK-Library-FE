@@ -157,7 +157,6 @@ const { value: confirmPassword } = useField<string>('confirmPassword', undefined
                     v-model:placeholder="placeholder"
                     v-model="value"
                     calendar-label="Date of birth"
-                    initial-focus
                     :min-value="new CalendarDate(1900, 1, 1)"
                     :max-value="today(getLocalTimeZone())"
                     @update:model-value="(v?: DateValue) => {
