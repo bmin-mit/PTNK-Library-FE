@@ -41,7 +41,6 @@ async function handleRequestAction(requestId: number, action: LendingStatus) {
     }
   }
   catch (e) {
-    console.log(e)
     toast.error(`Failed to update request: ${((e as AxiosError).response?.data as { message: string })?.message}`)
   }
   finally {
