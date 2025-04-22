@@ -1,41 +1,16 @@
-# Nuxt Minimal Starter
+# PTNK Library - Frontend
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Yêu cầu và hướng dẫn cài đặt:
+- [NodeJS 22 (LTS)](https://nodejs.org/en)
+- [Yarn 4.9.x (stable)](https://yarnpkg.com/getting-started/install)
 
 ## Setup
-
-Make sure to install dependencies:
-
 ```bash
-# npm
-npm install
+# Khuyến khích git clone thay vì file zip nhằm tránh những file bị ignore
+git clone https://github.com/bmin-mit/PTNK-Library-FE
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+cd PTNK-Library-FE
+yarn
 ```
 
 ## Production
@@ -43,33 +18,15 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
 yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+yarn preview 
 ```
+
+Server sẽ được khởi chạy ở http://localhost:3000
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

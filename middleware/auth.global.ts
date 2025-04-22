@@ -1,3 +1,4 @@
+import type { AxiosError } from 'axios'
 import { defineNuxtRouteMiddleware, useCookie } from '#app'
 import { useUser } from '~/store/user'
 
@@ -13,6 +14,6 @@ export default defineNuxtRouteMiddleware(async () => {
     await userStore.fetchUser()
   }
   catch (e) {
-    console.log('Failed to fetch user data on middleware with message:', e)
+    console.log('Failed to fetch user data on middleware with message:', (e as AxiosError).code)
   }
 })
