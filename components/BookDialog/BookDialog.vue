@@ -2,9 +2,13 @@
 import type { Book } from '~/types/book.entity'
 import { Dialog, DialogHeader, DialogScrollContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import { Separator } from '~/components/ui/separator'
+import { useUser } from '~/store/user'
+import { UserRole } from '~/types/user-role.enum'
 import LendingRequestForm from './LendingRequestForm.vue'
 
 defineProps<{ book: Book }>()
+
+const user = useUser().user
 </script>
 
 <template>
@@ -12,6 +16,7 @@ defineProps<{ book: Book }>()
     <DialogTrigger as-child>
       <slot />
     </DialogTrigger>
+
     <DialogScrollContent>
       <DialogHeader>
         <DialogTitle>{{ book.name }}</DialogTitle>
@@ -46,35 +51,35 @@ defineProps<{ book: Book }>()
           <div>
             <p>ISBN</p>
             <p class="text-sm text-muted-foreground">
-              {{ book.position ?? 'Unknown' }}
+              {{ book.isbn ?? 'Unknown' }}
             </p>
           </div>
 
           <div>
             <p>Publisher</p>
             <p class="text-sm text-muted-foreground">
-              {{ book.position ?? 'Unknown' }}
+              {{ book.publisher ?? 'Unknown' }}
             </p>
           </div>
 
           <div>
             <p>Publish year</p>
             <p class="text-sm text-muted-foreground">
-              {{ book.position ?? 'Unknown' }}
+              {{ book.publishYear ?? 'Unknown' }}
             </p>
           </div>
 
           <div>
             <p>Language</p>
             <p class="text-sm text-muted-foreground">
-              {{ book.position ?? 'Unknown' }}
+              {{ book.language ?? 'Unknown' }}
             </p>
           </div>
         </div>
 
-        <Separator orientation="vertical" />
+        <Separator v-if="user?.role === UserRole.USER" orientation="vertical" />
 
-        <div>
+        <div v-if="user?.role === UserRole.USER">
           <p class="mb-4">
             Request lending
           </p>

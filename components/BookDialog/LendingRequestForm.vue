@@ -72,7 +72,7 @@ function setReturnDateField(value?: DateValue) {
     </FormField>
 
     <Button class="w-full" :disabled="isSubmitting">
-      Submit
+      Request
     </Button>
   </form>
 </template>

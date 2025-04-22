@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { callOnce } from '#app'
 import { definePageMeta } from '#imports'
+import { CreateBookDialog } from '~/components/CreateBookDialog'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { H1 } from '~/components/ui/typography'
@@ -19,7 +20,7 @@ await callOnce(bookStore.fetchBooks, { mode: 'navigation' })
 <template>
   <div>
     <div class="max-w-screen-lg mx-auto my-16 px-8">
-      <H1 class="mb-16">
+      <H1 class="mb-8">
         Books
       </H1>
 
@@ -65,5 +66,7 @@ await callOnce(bookStore.fetchBooks, { mode: 'navigation' })
         </TableBody>
       </Table>
     </div>
+
+    <CreateBookDialog />
   </div>
 </template>

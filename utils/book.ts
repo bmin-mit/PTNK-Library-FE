@@ -1,3 +1,4 @@
+import type { Book } from '~/types/book.entity'
 import { createAuthAxios } from '#imports'
 
 export async function fetchAllBooks() {
@@ -11,6 +12,13 @@ export async function requestLending(bookId: number, quantity: number, returnDat
     quantity,
     returnDate,
   })
+
+  return res.status === 201
+}
+
+export async function createBook(book: Omit<Book, 'id'>) {
+  const axios = createAuthAxios()
+  const res = await axios.post('/book', book)
 
   return res.status === 201
 }

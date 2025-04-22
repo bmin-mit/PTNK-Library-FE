@@ -37,8 +37,8 @@ const onSubmit = handleSubmit(async (values) => {
   try {
     await login(values.email, values.password)
 
-    toast.success('Login successful')
-    await navigateTo('/')
+    toast.success('Log in successfully')
+    await navigateTo('/books')
   }
   catch (e: any) {
     toast.error(e.response.data.message)

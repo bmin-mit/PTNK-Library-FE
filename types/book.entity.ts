@@ -4,4 +4,9 @@ export interface Book {
   quantity: number
   stock: number
   position?: string
+  author?: string
+  publisher?: string
+  publishYear?: number
+  isbn?: string
+  language?: string
 }

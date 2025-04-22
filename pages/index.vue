@@ -1,7 +1,16 @@
 <script setup lang="ts">
+import { navigateTo } from '#app'
 import { Button } from '@/components/ui/button'
 import { H1, H3 } from '@/components/ui/typography'
 import { ArrowRight } from 'lucide-vue-next'
+import { useUser } from '~/store/user'
+
+const userStore = useUser()
+const isLoggedIn = !!userStore.user
+
+if (isLoggedIn) {
+  navigateTo('/books')
+}
 </script>
 
 <template>

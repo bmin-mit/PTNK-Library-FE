@@ -2,6 +2,7 @@ import type { Book } from '~/types/book.entity'
 import { createAuthAxios } from '#imports'
 import { defineStore } from 'pinia'
 import { FetchStatus } from '~/types/fetch-status.enum'
+import { createBook } from '~/utils/book'
 
 export const useBookStore = defineStore('book', {
   state: () => ({ books: [] as Book[], status: FetchStatus.UNINITIALIZED }),
@@ -20,6 +21,13 @@ export const useBookStore = defineStore('book', {
       }
       catch {
         this.status = FetchStatus.FAILED
+      }
+    },
+
+    async createBook(book: Omit<Book, 'id'>) {
+      const isSuccess = await createBook(book)
+      if (isSuccess) {
+        this.books.push(book as Book)
       }
     },
   },
