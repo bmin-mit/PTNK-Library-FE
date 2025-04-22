@@ -6,7 +6,7 @@ import { useUser } from '~/store/user'
 import { UserRole } from '~/types/user-role.enum'
 import LendingRequestForm from './LendingRequestForm.vue'
 
-defineProps<{ book: Book }>()
+const { disableLending = false } = defineProps<{ book: Book, disableLending?: boolean }>()
 
 const user = useUser().user
 </script>
@@ -21,7 +21,7 @@ const user = useUser().user
       <DialogHeader>
         <DialogTitle>{{ book.name }}</DialogTitle>
         <p class="text-muted-foreground text-sm">
-          Authors: Book authors
+          Authors: {{ book.author }}
         </p>
       </DialogHeader>
 
@@ -77,9 +77,9 @@ const user = useUser().user
           </div>
         </div>
 
-        <Separator v-if="user?.role === UserRole.USER" orientation="vertical" />
+        <Separator v-if="user?.role === UserRole.USER && !disableLending" orientation="vertical" />
 
-        <div v-if="user?.role === UserRole.USER">
+        <div v-if="user?.role === UserRole.USER && !disableLending">
           <p class="mb-4">
             Request lending
           </p>

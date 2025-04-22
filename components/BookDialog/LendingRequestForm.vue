@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
 import type { Book } from '~/types/book.entity'
+import { CalendarDate, getLocalTimeZone, today } from '@internationalized/date'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
@@ -66,7 +67,7 @@ function setReturnDateField(value?: DateValue) {
         <FormLabel for="returnDate">
           Return date
         </FormLabel>
-        <DatePicker v-model="returnDate" :disabled="isSubmitting" @update:model-value="setReturnDateField" />
+        <DatePicker v-model="returnDate" :disabled="isSubmitting" :min-value="today(getLocalTimeZone())" :max-value="new CalendarDate(2050, 1, 1)" @update:model-value="setReturnDateField" />
         <FormMessage />
       </FormItem>
     </FormField>

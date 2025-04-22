@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports'
+import { definePageMeta, useHead } from '#imports'
 import { BookTable } from '~/components/BookTable'
 import { CreateBookDialog } from '~/components/CreateBookDialog'
+
+useHead({
+  title: 'PTNK Library - Books',
+})
 
 definePageMeta({
   middleware: 'require-auth',

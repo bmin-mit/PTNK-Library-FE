@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { navigateTo } from '#app'
-import { definePageMeta, useLogin } from '#imports'
+import { definePageMeta, useHead, useLogin } from '#imports'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -12,6 +12,10 @@ import { ref } from 'vue'
 import { toast } from 'vue-sonner'
 import * as z from 'zod'
 import H3 from '~/components/ui/typography/H3.vue'
+
+useHead({
+  title: 'PTNK Library - Log in',
+})
 
 definePageMeta({
   layout: 'auth',

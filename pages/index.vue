@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { navigateTo } from '#app'
+import { useHead } from '#imports'
 import { Button } from '@/components/ui/button'
 import { H1, H3 } from '@/components/ui/typography'
 import { ArrowRight } from 'lucide-vue-next'
 import { useUser } from '~/store/user'
+
+useHead({
+  title: 'PTNK Library',
+})
 
 const userStore = useUser()
 const isLoggedIn = !!userStore.user

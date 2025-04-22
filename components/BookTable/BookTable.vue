@@ -77,7 +77,7 @@ function handleBookDelete(bookId: number) {
                 <TableCell>{{ book.stock }}</TableCell>
                 <TableCell>{{ book.position }}</TableCell>
                 <TableCell v-if="user?.role === UserRole.ADMIN" class="text-end">
-                  <Button size="icon" class="w-8 h-8 self-end" @click="handleBookDelete(book.id)">
+                  <Button size="icon" class="w-8 h-8 self-end" variant="destructive" @click="handleBookDelete(book.id)">
                     <Trash />
                   </Button>
                 </TableCell>

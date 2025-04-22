@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
 import { navigateTo } from '#app'
-import { definePageMeta } from '#imports'
+import { definePageMeta, useHead } from '#imports'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -16,6 +16,10 @@ import { useField, useForm } from 'vee-validate'
 import { ref } from 'vue'
 import { toast } from 'vue-sonner'
 import * as z from 'zod'
+
+useHead({
+  title: 'PTNK Library - Register',
+})
 
 definePageMeta({
   layout: 'auth',
