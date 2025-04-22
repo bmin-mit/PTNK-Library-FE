@@ -13,7 +13,7 @@ const user = useUser().user
 
 <template>
   <Dialog>
-    <DialogTrigger as-child>
+    <DialogTrigger>
       <slot />
     </DialogTrigger>
 

@@ -30,5 +30,13 @@ export const useBookStore = defineStore('book', {
         this.books.push(book as Book)
       }
     },
+
+    async deleteBook(id: number) {
+      const axios = createAuthAxios()
+      const res = await axios.delete(`/book/${id}`)
+      if (res.status === 200) {
+        this.books = this.books.filter(book => book.id !== id)
+      }
+    },
   },
 })
