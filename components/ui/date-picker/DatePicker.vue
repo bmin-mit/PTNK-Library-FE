@@ -15,6 +15,7 @@ interface Props {
   maxValue?: DateValue
   calendarLabel?: string
   modelValue?: DateValue
+  disabled?: boolean
 }
 
 defineProps<Props>()
@@ -38,7 +39,7 @@ const df = new DateFormatter('en-US', {
             !modelValue && 'text-muted-foreground',
             $attrs.class as string,
           )"
-          :disabled="$attrs.disabled"
+          :disabled="disabled"
           type="button"
         >
           <span>{{ modelValue ? df.format(toDate(modelValue)) : "Pick a date" }}</span>
