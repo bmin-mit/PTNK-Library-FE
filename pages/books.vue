@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { callOnce } from '#app'
+import { definePageMeta } from '#imports'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { H1 } from '~/components/ui/typography'
 import { useBookStore } from '~/store/book'
 import { FetchStatus } from '~/types/fetch-status.enum'
+
+definePageMeta({
+  middleware: 'require-auth',
+})
 
 const bookStore = useBookStore()
 
